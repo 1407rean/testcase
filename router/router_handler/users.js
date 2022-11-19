@@ -20,7 +20,6 @@ exports.offLine = (req, res) => {
   db.query(sql_users, req.body.uid, (err, user_results) => {
     if (err) return res.cc(err);
     if (user_results.length != 1) return res.cc("users数据错误");
-    console.log(typeof user_results,"13334");
     const userjson = JSON.stringify(user_results);
     // fs.writeFileSync("offline.txt", userjson);
 
@@ -102,7 +101,7 @@ exports.offLine = (req, res) => {
                     let fuid = zhi_results[0].fid;
                     // 直推的余额消费值
                     const Sql_zhi =
-                      "select consums,balance,total_consum from users where id=?";
+                      "select consums,balance,total_consum,roles,levels from users where id=?";
                     db.query(Sql_zhi, fuid, (err, fzhi_results) => {
                       if (err) return res.cc(err);
                       if (fzhi_results.length > 1)
@@ -278,11 +277,14 @@ exports.offLine = (req, res) => {
                                                         "offline.txt"
                                                       )
                                                     );
-                                                    const o = JSON.stringify(data[15])
-                                                    const m = JSON.parse(o)
-                                                    const arr = [data[15]]
+                                                    // const o = JSON.stringify(data[15])
+                                                    // const m = JSON.parse(o)
+                                                    // const arr = [data[15]]
 
-                                                    console.table(fzhi);
+                                                    console.table(data);
+                                                    res.send({
+                                                      data
+                                                    })
                                                   }
                                                 } 
                                               );
