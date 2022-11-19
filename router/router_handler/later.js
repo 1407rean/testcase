@@ -27,7 +27,7 @@
      /**
       *  用户抽奖次数
       */
-     const sql_cur = "select total_num,total_num from user_gift where uid=?";
+     const sql_cur = "select today_num,total_num from user_gift where uid=?";
      db.query(sql_cur, req.body.uid, (err, ucur_results) => {
        if (err) return res.cc(err);
        if (ucur_results.length > 1) return res.cc("ucur数据错误");
@@ -118,6 +118,7 @@
                          if (fcur_results.length > 1)
                            return res.cc("fcur数据错误");
                          const fcur = JSON.stringify(fcur_results);
+                         
                          // 直推的余额消费值
                          const Sql_zhi =
                            "select consums,balance,total_consum,roles,levels from users where id=?";
